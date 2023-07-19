@@ -136,18 +136,78 @@ CREATE TABLE modelo (
 );
 
 --	--	--	--	TABELAS ESTRANGEIRAS
-
+--	CONVENIADOS
 ALTER TABLE clientes
 	ADD CONSTRAINT conveniados_fk
-		FOREIGN KEY (id) 
+		FOREIGN KEY (convenio) 
+			REFERENCES conveniados (id);
+
+ALTER TABLE termo_descontos
+	ADD CONSTRAINT conveniados_fk
+		FOREIGN KEY (convenio) 
 			REFERENCES conveniados (id);
 			
-ALTER TABLE clientes
-	DROP COLUMN endereco;
-	
-ALTER TABLE enderecos
-	ADD COLUMN cliente INT NOT NULL;
-	
-
+ALTER TABLE frotas
+	ADD CONSTRAINT conveniados_fk
+		FOREIGN KEY (convenio) 
+			REFERENCES conveniados (id);
 			
-select * from clientes;
+ALTER TABLE enderecos
+	ADD CONSTRAINT conveniados_fk
+		FOREIGN KEY (conveniado) 
+			REFERENCES conveniados (id);
+			
+--	CLIENTE			
+ALTER TABLE placa_clientes
+	ADD CONSTRAINT clientes_fk
+		FOREIGN KEY (cliente) 
+			REFERENCES clientes (id);
+			
+ALTER TABLE enderecos
+	ADD CONSTRAINT clientes_fk
+		FOREIGN KEY (cliente) 
+			REFERENCES clientes (id);
+			
+--	ENDERECOS
+ALTER TABLE enderecos
+	ADD CONSTRAINT cidade_fk
+		FOREIGN KEY (cidade) 
+			REFERENCES cidades (id);
+			
+ALTER TABLE cidades
+	ADD CONSTRAINT estados_fk
+		FOREIGN KEY (estado) 
+			REFERENCES estados (id);
+			
+--	VEICULOS/PLACAS/ETC
+ALTER TABLE placa_clientes
+	ADD CONSTRAINT veiculos_fk
+		FOREIGN KEY (veiculo) 
+			REFERENCES veiculos (id);
+
+ALTER TABLE veiculos
+	ADD CONSTRAINT tp_veiculo_fk
+		FOREIGN KEY (tp_veiculo) 
+			REFERENCES tp_veiculo (id);
+
+ALTER TABLE veiculos
+	ADD CONSTRAINT cor_fk
+		FOREIGN KEY (cor) 
+			REFERENCES cor (id);
+			
+ALTER TABLE veiculos
+	ADD CONSTRAINT marca_fk
+		FOREIGN KEY (marca) 
+			REFERENCES marca (id);
+			
+ALTER TABLE veiculos
+	ADD CONSTRAINT modelo_fk
+		FOREIGN KEY (modelo) 
+			REFERENCES modelo (id);
+			
+ALTER TABLE veiculos
+	ADD CONSTRAINT frota_fk
+		FOREIGN KEY (frota) 
+			REFERENCES frotas (id);
+			
+select * from tp_veiculo;
